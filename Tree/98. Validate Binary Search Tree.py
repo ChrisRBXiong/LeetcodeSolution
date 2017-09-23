@@ -103,11 +103,6 @@ class Solution3(object):
 
         
         
-    
-
-# tree = createTree([8,3,10,1,6,None,14,None,None,4,7,13,None])
-tree = createTree([0,None,-1])
-print(Solution3().isValidBST(tree))
 
 
             
