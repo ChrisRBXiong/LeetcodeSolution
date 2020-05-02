@@ -841,3 +841,64 @@ class Solution(object):
             if i % k == 0: prev_tail = next_prev_tail
         return dummy.next
 ```
+
+
+### 148. [排序链表](https://leetcode-cn.com/problems/sort-list/) ```middle```
+<img src="img/148.png" width="">
+
+**分析**<br/><br/>
+利用归并排序对链表进行排序，每次找到中点来划分前部分和后部分，中点应为后面一个中点，当数目为偶数时。然后对获得的两个链表进行merge。
+
+**算法如下**<br/>
+```python
+class Solution:
+    def sortList(self, head: ListNode) -> ListNode:
+        if head is None or head.next is None: return head 
+        slow, fast = head, head.next
+        while fast and fast.next:
+            fast = fast.next.next 
+            slow = slow.next
+        right_start = slow.next 
+        slow.next = None 
+        left = self.sortList(head)
+        right = self.sortList(right_start)
+        
+        dummy = ListNode(None)
+        head = dummy
+        while left and right:
+            if left.val < right.val:
+                head.next = left 
+                left = left.next 
+            else:
+                head.next = right 
+                right = right.next
+            head = head.next
+        if left: head.next = left 
+        if right: head.next = right 
+        return dummy.next
+```
+
+
+### 1019. [链表中的下一个更大节点](https://leetcode-cn.com/problems/next-greater-node-in-linked-list/) ```middle```
+<img src="img/1019.png" width="">
+
+**分析**<br/><br/>
+使用单调递减栈解决这一问题，单调递减栈维护一个单调递减的栈，当遍历的元素大于当前栈顶时，一直出栈直到栈顶元素大于等于当前元素。当前元素便是出栈元素碰到的第一个更大的节点。
+
+**算法如下**<br/>
+```python
+class Solution:
+    def nextLargerNodes(self, head: ListNode) -> List[int]:
+        ans = []
+        stack = []
+        i = 0
+        while head:
+            ans.append(0)
+            while stack and stack[-1][1] < head.val:
+                idx, val = stack.pop()
+                ans[idx] = head.val 
+            stack.append((i, head.val))
+            head = head.next 
+            i += 1
+        return ans
+```
