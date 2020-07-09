@@ -143,7 +143,7 @@ class Solution(object):
 
 
 ### 92. [反转链表II](https://leetcode-cn.com/problems/reverse-linked-list-ii/) ```middle```
-<img src="img/206.png" width="">
+<img src="img/92.png" width="">
 
 **分析**<br/><br/>
 首先找到第m个链表节点，并设置一个prev节点，然后把prev节点做为头插法的头。当head设置为dummy时，循环m次即可以找到第m个节点。然后循环头插节点，直到第n个节点。需要注意的是，此时第m个节点将是新的尾节点，将这个尾节点和第n+1个节点连接即可。
